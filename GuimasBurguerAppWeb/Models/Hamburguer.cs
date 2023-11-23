@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace GuimasBurguerAppWeb.Models;
 
@@ -35,4 +36,8 @@ public class Hamburguer
     [DisplayFormat(DataFormatString = "{0:MMMM \\de yyyy}")]
     [DataType("month")]
     public DateTime DataCadastro { get; set; }
+
+    [Display(Name = "Marca")]
+    public int? MarcaId { get; set; }
+
 }

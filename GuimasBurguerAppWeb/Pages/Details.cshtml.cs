@@ -8,6 +8,7 @@ namespace GuimasBurguerAppWeb.Pages
     public class DetailsModel : PageModel
     {
         private IHamburguerService _service;
+        public string DescricaoMarca { get; set; }
 
         public DetailsModel(IHamburguerService service) 
         {
@@ -19,6 +20,10 @@ namespace GuimasBurguerAppWeb.Pages
         public IActionResult OnGet(int id)
         {
             Hamburguer = _service.Obter(id);
+            if (Hamburguer.MarcaId is not null)
+            {
+                DescricaoMarca = _service.ObterMarca(Hamburguer.MarcaId.Value).Descricao;
+            }
 
             if (Hamburguer == null)
             {

@@ -2,11 +2,13 @@ using GuimasBurguerAppWeb.Models;
 using GuimasBurguerAppWeb.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace GuimasBurguerAppWeb.Pages
 {
     public class EditModel : PageModel
     {
+        public SelectList MarcaOptionItems { get; set; }
         private IHamburguerService _service;
 
         public EditModel(IHamburguerService service)
@@ -20,6 +22,10 @@ namespace GuimasBurguerAppWeb.Pages
         public IActionResult OnGet(int id)
         {
             Hamburguer = _service.Obter(id);
+
+            MarcaOptionItems = new SelectList(_service.ObterTodasMarcas(),
+                                                nameof(Marca.MarcaId),
+                                                nameof(Marca.Descricao));
 
             if (Hamburguer == null)
             {
@@ -39,6 +45,8 @@ namespace GuimasBurguerAppWeb.Pages
             //alteração
             _service.Alterar(Hamburguer);
 
+            TempData["TempMensagemSucesso"] = true;
+
             return RedirectToPage("/Index");
         }
 
@@ -46,6 +54,8 @@ namespace GuimasBurguerAppWeb.Pages
         {
             //exclusão
             _service.Excluir(Hamburguer.HamburguerId);
+
+            TempData["TempMensagemSucesso"] = true;
 
             return RedirectToPage("/Index");
         }

@@ -1,6 +1,6 @@
 ﻿using GuimasBurguerAppWeb.Models;
 
-namespace GuimasBurguerAppWeb.Services;
+namespace GuimasBurguerAppWeb.Services.Memory;
 
 public class HamburguerService : IHamburguerService
 {
@@ -59,7 +59,7 @@ public class HamburguerService : IHamburguerService
     public IList<Hamburguer> ObterTodos()
         => _hamburguers;
 
-    public Hamburguer Obter(int id) 
+    public Hamburguer Obter(int id)
         => ObterTodos().SingleOrDefault(item => item.HamburguerId == id);
 
     public void Incluir(Hamburguer hamburguer)
@@ -84,5 +84,15 @@ public class HamburguerService : IHamburguerService
     {
         var hamburguerEncontrado = Obter(id);
         _hamburguers.Remove(hamburguerEncontrado);
+    }
+
+    public IList<Marca> ObterTodasMarcas()
+    {
+        throw new NotImplementedException();
+    }
+
+    public Marca ObterMarca(int id)
+    {
+        throw new NotImplementedException();
     }
 }

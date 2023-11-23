@@ -9,4 +9,6 @@ public interface IHamburguerService
     void Incluir(Hamburguer hamburguer);
     void Alterar(Hamburguer hamburguer);
     void Excluir(int id);
+    IList<Marca> ObterTodasMarcas();
+    Marca ObterMarca(int id);
 }
