@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GuimasBurguerAppWeb.Data.Migrations
 {
     [DbContext(typeof(HamburgueriaDbContext))]
-    [Migration("20231118013103_AdicionarTabelaHamburguer")]
-    partial class AdicionarTabelaHamburguer
+    [Migration("20231130010821_AdicionarDadosMarca")]
+    partial class AdicionarDadosMarca
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -48,6 +48,9 @@ namespace GuimasBurguerAppWeb.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("MarcaId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Nome")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -58,7 +61,38 @@ namespace GuimasBurguerAppWeb.Data.Migrations
 
                     b.HasKey("HamburguerId");
 
+                    b.HasIndex("MarcaId");
+
                     b.ToTable("Hamburguer");
+                });
+
+            modelBuilder.Entity("GuimasBurguerAppWeb.Models.Marca", b =>
+                {
+                    b.Property<int>("MarcaId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MarcaId"));
+
+                    b.Property<string>("Descricao")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("MarcaId");
+
+                    b.ToTable("Marca");
+                });
+
+            modelBuilder.Entity("GuimasBurguerAppWeb.Models.Hamburguer", b =>
+                {
+                    b.HasOne("GuimasBurguerAppWeb.Models.Marca", null)
+                        .WithMany("Hamburgueres")
+                        .HasForeignKey("MarcaId");
+                });
+
+            modelBuilder.Entity("GuimasBurguerAppWeb.Models.Marca", b =>
+                {
+                    b.Navigation("Hamburgueres");
                 });
 #pragma warning restore 612, 618
         }

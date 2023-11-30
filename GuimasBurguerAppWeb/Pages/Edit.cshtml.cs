@@ -3,6 +3,7 @@ using GuimasBurguerAppWeb.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using NToastNotify;
 
 namespace GuimasBurguerAppWeb.Pages
 {
@@ -10,10 +11,13 @@ namespace GuimasBurguerAppWeb.Pages
     {
         public SelectList MarcaOptionItems { get; set; }
         private IHamburguerService _service;
+        private IToastNotification _toastNotification;
 
-        public EditModel(IHamburguerService service)
+        public EditModel(IHamburguerService service,
+                         IToastNotification toastNotification)
         {
             _service = service;
+            _toastNotification = toastNotification;
         }
 
         [BindProperty]
@@ -45,7 +49,7 @@ namespace GuimasBurguerAppWeb.Pages
             //alteração
             _service.Alterar(Hamburguer);
 
-            TempData["TempMensagemSucesso"] = true;
+            _toastNotification.AddSuccessToastMessage("Operação realizada com sucesso!");
 
             return RedirectToPage("/Index");
         }
@@ -55,7 +59,7 @@ namespace GuimasBurguerAppWeb.Pages
             //exclusão
             _service.Excluir(Hamburguer.HamburguerId);
 
-            TempData["TempMensagemSucesso"] = true;
+            _toastNotification.AddSuccessToastMessage("Operação realizada com sucesso!");
 
             return RedirectToPage("/Index");
         }

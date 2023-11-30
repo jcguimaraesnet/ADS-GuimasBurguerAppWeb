@@ -2,11 +2,19 @@ using GuimasBurguerAppWeb.Data;
 using GuimasBurguerAppWeb.Services;
 using GuimasBurguerAppWeb.Services.Data;
 using Microsoft.EntityFrameworkCore;
+using NToastNotify;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddRazorPages();
+builder.Services.AddRazorPages()
+                .AddNToastNotifyToastr(new ToastrOptions()
+                {
+                    TimeOut = 5000,
+                    ProgressBar = true,
+                    PositionClass = ToastPositions.BottomRight
+                });
+
 builder.Services.AddTransient<IHamburguerService, HamburguerService>();
 builder.Services.AddDbContext<HamburgueriaDbContext>();
 
@@ -28,6 +36,8 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+
+app.UseNToastNotify();
 
 app.UseAuthorization();
 

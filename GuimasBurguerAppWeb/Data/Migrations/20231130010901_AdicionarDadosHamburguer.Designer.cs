@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GuimasBurguerAppWeb.Data.Migrations
 {
     [DbContext(typeof(HamburgueriaDbContext))]
-    [Migration("20231118022414_AdicionarTabelaMarca")]
-    partial class AdicionarTabelaMarca
+    [Migration("20231130010901_AdicionarDadosHamburguer")]
+    partial class AdicionarDadosHamburguer
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -48,6 +48,9 @@ namespace GuimasBurguerAppWeb.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("MarcaId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Nome")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -57,6 +60,8 @@ namespace GuimasBurguerAppWeb.Data.Migrations
                         .HasColumnType("float");
 
                     b.HasKey("HamburguerId");
+
+                    b.HasIndex("MarcaId");
 
                     b.ToTable("Hamburguer");
                 });
@@ -76,6 +81,18 @@ namespace GuimasBurguerAppWeb.Data.Migrations
                     b.HasKey("MarcaId");
 
                     b.ToTable("Marca");
+                });
+
+            modelBuilder.Entity("GuimasBurguerAppWeb.Models.Hamburguer", b =>
+                {
+                    b.HasOne("GuimasBurguerAppWeb.Models.Marca", null)
+                        .WithMany("Hamburgueres")
+                        .HasForeignKey("MarcaId");
+                });
+
+            modelBuilder.Entity("GuimasBurguerAppWeb.Models.Marca", b =>
+                {
+                    b.Navigation("Hamburgueres");
                 });
 #pragma warning restore 612, 618
         }

@@ -6,9 +6,8 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace GuimasBurguerAppWeb.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class AdicionarDadosIniciaisHamburguer : Migration
+    public partial class AdicionarDadosHamburguer : Migration
     {
-        /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             var context = new HamburgueriaDbContext();
@@ -58,6 +57,5 @@ namespace GuimasBurguerAppWeb.Data.Migrations
                 },
             };
         }
-
     }
 }

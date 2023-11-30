@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GuimasBurguerAppWeb.Data.Migrations
 {
     [DbContext(typeof(HamburgueriaDbContext))]
-    [Migration("20231118024132_AdicionarRelacionamentoHamburguerMarca")]
-    partial class AdicionarRelacionamentoHamburguerMarca
+    [Migration("20231130010805_AdicionarMigrationsTotal")]
+    partial class AdicionarMigrationsTotal
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

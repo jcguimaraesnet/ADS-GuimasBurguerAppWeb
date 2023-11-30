@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 
 namespace GuimasBurguerAppWeb.Data;
-
+ 
 public class HamburgueriaDbContext : DbContext
 {
     public DbSet<Hamburguer> Hamburguer { get; set; }
