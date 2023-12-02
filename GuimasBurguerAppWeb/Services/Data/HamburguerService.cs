@@ -1,5 +1,6 @@
 ﻿using GuimasBurguerAppWeb.Data;
 using GuimasBurguerAppWeb.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace GuimasBurguerAppWeb.Services.Data;
 
@@ -22,6 +23,7 @@ public class HamburguerService : IHamburguerService
         hamburguerEncontrado.EntregaExpressa = hamburguer.EntregaExpressa;
         hamburguerEncontrado.DataCadastro = hamburguer.DataCadastro;
         hamburguerEncontrado.MarcaId = hamburguer.MarcaId;
+        hamburguerEncontrado.Categorias = hamburguer.Categorias;
 
         _context.SaveChanges();
     }
@@ -41,7 +43,9 @@ public class HamburguerService : IHamburguerService
 
     public Hamburguer Obter(int id)
     {
-        return _context.Hamburguer.SingleOrDefault(item => item.HamburguerId == id);
+        return _context.Hamburguer
+                            .Include(item => item.Categorias)
+                            .SingleOrDefault(item => item.HamburguerId == id);
     }
 
     public IList<Hamburguer> ObterTodos()
@@ -54,4 +58,7 @@ public class HamburguerService : IHamburguerService
 
     public Marca ObterMarca(int id)
         => _context.Marca.SingleOrDefault(item => item.MarcaId == id);
+
+    public IList<Categoria> ObterTodasCategorias()
+        => _context.Categoria.ToList();
 }

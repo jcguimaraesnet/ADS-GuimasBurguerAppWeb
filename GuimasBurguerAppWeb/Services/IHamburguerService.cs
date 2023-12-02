@@ -11,4 +11,5 @@ public interface IHamburguerService
     void Excluir(int id);
     IList<Marca> ObterTodasMarcas();
     Marca ObterMarca(int id);
+    IList<Categoria> ObterTodasCategorias();
 }

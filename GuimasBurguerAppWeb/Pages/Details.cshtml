@@ -34,6 +34,15 @@
                     @Html.DisplayFor(model => model.DescricaoMarca)
                 </li>
             }
+
+            @if (Model.Hamburguer.Categorias.Count > 0)
+            {
+                <li>
+                    <label asp-for="Hamburguer.Categorias"></label>:
+                    @string.Join(", ", Model.Hamburguer.Categorias.Select(item => item.Descricao))
+                </li>
+            }
+
         </ul>
         <a class="btn my-3 btn-primary" 
         asp-page="/Edit" asp-route-id="@Model.Hamburguer.HamburguerId">Editar</a>

@@ -95,4 +95,9 @@ public class HamburguerService : IHamburguerService
     {
         throw new NotImplementedException();
     }
+
+    public IList<Categoria> ObterTodasCategorias()
+    {
+        throw new NotImplementedException();
+    }
 }
